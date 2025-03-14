@@ -21,6 +21,7 @@
       padding: 5px 15px;
       justify-content: space-between;
       display: flex;
+      gap: 15px;
     }
     background-color: var(--primary-color);
     color: white;
