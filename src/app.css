@@ -29,6 +29,7 @@ header {
   width: 100%;
 }
 .main-container {
+  /* using code from https://developer.mozilla.org/en-US/docs/Web/CSS/overflow */
   padding: 33px 15px 21px 15px;
   overflow: scroll;
   height: 100vh;
