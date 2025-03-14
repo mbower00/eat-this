@@ -10,9 +10,13 @@
 
   let route = $state("");
 
-  window.addEventListener("popstate", updateRoute);
+  function updateRoute() {
+    const [hashString, paramString] = window.location.hash.split("?");
+    route = hashString;
+    new URLSearchParams(paramString);
+  }
 
-  function updateRoute() {}
+  window.addEventListener("popstate", updateRoute);
 </script>
 
 <Header />

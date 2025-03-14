@@ -1,3 +1,1 @@
-<footer class="footer">
-  <p>&copy; {new Date().getFullYear()} My Website. All rights reserved.</p>
-</footer>
+<footer class="footer"></footer>
