@@ -21,18 +21,22 @@
 
 <Header />
 
-{#if route === "" || route === "#home"}
-  <HomeView />
-{:else if route === "#login"}
-  <LoginView />
-{:else if route === "#recipe"}
-  <RecipeView />
-{:else if route === "#search"}
-  <SearchView />
-{:else if route === "#userhub"}
-  <UserHubView />
-{:else}
-  <NotFoundView />
-{/if}
+<div class="main-container">
+  <div class="main-view">
+    {#if route === "" || route === "#home"}
+      <HomeView />
+    {:else if route === "#login"}
+      <LoginView />
+    {:else if route === "#recipe"}
+      <RecipeView />
+    {:else if route === "#search"}
+      <SearchView />
+    {:else if route === "#userhub"}
+      <UserHubView />
+    {:else}
+      <NotFoundView />
+    {/if}
+  </div>
+</div>
 
 <Footer />

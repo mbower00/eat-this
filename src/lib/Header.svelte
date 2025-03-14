@@ -59,6 +59,7 @@
       background-color: white;
       transition: all ease 0.2s;
       bottom: -4;
+      border-radius: 3px;
     }
     &:hover {
       .bar {
