@@ -1,8 +1,20 @@
+/* code copied from https://fonts.google.com/selection/embed */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --primary-color: #7a2a37;
   --secondary-color: #688b41;
+  --text-color: #333;
 }
 
 body {
   margin: 0;
+  /* code copied from https://fonts.google.com/selection/embed */
+  font-family: "Roboto", sans-serif;
+  color: var(--text-color);
+}
+
+h1, h2, h3 {
+  /* code copied from https://fonts.google.com/selection/embed */
+  font-family: "Lobster", sans-serif;
 }

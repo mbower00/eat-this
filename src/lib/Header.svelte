@@ -29,7 +29,7 @@
   nav {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 5px 15px;
     align-items: center;
     gap: 15px;
   }
@@ -42,6 +42,7 @@
     gap: 15px;
     margin: 0;
     padding: 0;
+    font-size: small;
     a {
       text-decoration: none;
       color: white;
@@ -57,7 +58,7 @@
       height: 2px;
       background-color: white;
       transition: all ease 0.2s;
-      bottom: -3;
+      bottom: -4;
     }
     &:hover {
       .bar {
