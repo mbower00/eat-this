@@ -1,4 +1,5 @@
 <script>
+  import LoadingAnimation from "../LoadingAnimation.svelte";
   let testId = $state(1);
 </script>
 
