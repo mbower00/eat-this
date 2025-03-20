@@ -5,10 +5,7 @@ export async function login(credentials) {
   let { data, error } = await supabase.auth.signInWithPassword(credentials)
 }
 
-export async function signup() {
-  let { data, error } = await supabase.auth.signUp({
+export async function signup(credentials) {
   // credentials should have .email and .password
-    email: 'someone@email.com',
-    password: 'VuaGQuyQJkYyleqQqUhX'
-  })
+  let { data, error } = await supabase.auth.signUp(credentials)
 }
