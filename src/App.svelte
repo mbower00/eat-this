@@ -7,9 +7,16 @@
   import SearchView from "./lib/components/views/SearchView.svelte";
   import UserHubView from "./lib/components/views/UserHubView.svelte";
   import ErrorView from "./lib/components/views/ErrorView.svelte";
+  import { checkSession } from "./lib/auth.svelte.js";
+  import { onMount } from "svelte";
 
   let route = $state("");
   let idParam = $state();
+
+  function init() {
+    updateRoute();
+    checkSession();
+  }
 
   function updateRoute() {
     const [hashString, paramString] = window.location.hash.split("?");
@@ -19,7 +26,7 @@
   }
 
   window.addEventListener("popstate", updateRoute);
-  updateRoute();
+  onMount(init);
 </script>
 
 <Header />

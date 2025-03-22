@@ -7,7 +7,10 @@
         <div class="bar"></div>
       </li>
       <li>
-        <a href="#search">Search</a>
+        <a href="#search">
+          <!-- line copied from fontawesome.com -->
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
         <div class="bar"></div>
       </li>
       <li>
@@ -15,7 +18,10 @@
         <div class="bar"></div>
       </li>
       <li>
-        <a href="#userhub">User Hub</a>
+        <a href="#userhub">
+          <!-- line copied from fontawesome.com -->
+          <i class="fa-solid fa-user"></i>
+        </a>
         <div class="bar"></div>
       </li>
     </menu>
