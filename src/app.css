@@ -73,4 +73,29 @@ button {
   background-color: var(--background-color);
 }
 
+.meta-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.meta-info div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.source {
+  font-style: italic;
+  margin-top: 2rem;
+  text-align: right;
+}
 /* END BUTTON STYLES */
