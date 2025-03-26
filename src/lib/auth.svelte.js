@@ -51,13 +51,15 @@ export async function logout() {
 
 export async function checkSession() {
   let {data, error} = await supabase.auth.getSession()
-  if (error) {
+  if (error) { // ERROR
     // TODO: show error banner
     console.error(error)
-  } else if (data.session) {
+  } else if (data.session) { // Session active
+    console.log("logged in")
     userData.user = data
     userData.isLoggedIn = true
-  } else {
+  } else { // Session inactive
+    console.log("logged out")
     userData.isLoggedIn = false
     userData.user = {}
   }

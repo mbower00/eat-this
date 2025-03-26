@@ -1,8 +1,16 @@
 <script>
   import { login, signup, oauthLogin } from "../../auth.svelte.js";
+  import { searchRecipes, getRandomRecipes } from "../../external-services.mjs";
 
   let email = $state("");
   let password = $state("");
+
+  searchRecipes("tomato", {
+    cuisine: "italian",
+    excludeCuisine: "greek",
+    equipment: "pan",
+  });
+  getRandomRecipes();
 
   function handleLogin(e) {
     e.preventDefault();

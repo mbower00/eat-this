@@ -17,3 +17,53 @@ export async function getRecipeById(id) {
   }
 
 }
+
+/*
+see https://spoonacular.com/food-api/docs#Search-Recipes-Complex
+for the various options. 
+*/
+export async function searchRecipes(query, options = {}) {
+  // using code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+  let optionsString = ""
+  for (let i of Object.keys(options)) {
+    optionsString += `&${i}=${options[i]}`
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&query=${query}${optionsString}`)
+    const data = await response.json()
+    console.log(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&query=${query}${optionsString}`)
+    console.log(data)
+    if (data.status === "failure") {
+      throw data
+    } else {
+      return data
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+/*
+see https://spoonacular.com/food-api/docs#Search-Recipes-Complex
+for the various options. 
+*/
+export async function getRandomRecipes(number = 6, options = {}) {
+  // using code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+  let optionsString = ""
+  for (let i of Object.keys(options)) {
+    optionsString += `&${i}=${options[i]}`
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&number=${number}${optionsString}`)
+    const data = await response.json()
+    console.log(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&number=${number}${optionsString}`)
+    console.log(data)
+    if (data.status === "failure") {
+      throw data
+    } else {
+      return data
+    }
+  } catch (error) {
+    throw error
+  }
+}
