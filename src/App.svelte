@@ -14,9 +14,9 @@
   let route = $state("");
   let idParam = $state();
 
-  function init() {
+  async function init() {
+    await checkSession();
     updateRoute();
-    checkSession();
   }
 
   function updateRoute() {
