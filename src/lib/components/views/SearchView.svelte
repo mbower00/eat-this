@@ -9,7 +9,8 @@
     let loading = false;
     let error = "";
     let showingSuggestions = true;
-  
+    searchRecipes(query, {equipment: "pan", cuisine: "greek"})
+
     // Load suggestions on mount
     onMount(async () => {
       await loadSuggestedRecipes();
