@@ -25,11 +25,13 @@
   let randomRecipesPromise = $state(getRecipes());
 </script>
 
-<h1>Let's Get Cooking</h1>
+<!-- <h1>Let's Get Cooking</h1> -->
 
 <div class="hero-image">
   <button class="hero-button">Find a Recipe</button>
 </div>
+
+<h1 class="popularsTitle">Popular Recipes!</h1>
 
 {#await randomRecipesPromise}
   <LoadingAnimation />
@@ -39,14 +41,17 @@
 
 <style>
   .hero-image {
+    position: relative;
+    left: -15px;
     background-image: url(/hero-image-food.JPG);
     background-size: cover;
     background-position: center;
     height: 65vh;
-    width: 100%;
+    width: calc(100% + 30px);
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
   }
   .hero-button {
     position: relative;
@@ -66,5 +71,12 @@
     color: #7a2a37;
     border-color: #7a2a37;
     transform: scale(1.01) translateY(-3px);
+  }
+
+  .popularsTitle {
+    text-align: center;
+    font-size: xx-large;
+    border-bottom: 2px solid var(--primary-color);
+    width: 100%;
   }
 </style>
