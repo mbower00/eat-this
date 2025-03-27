@@ -54,9 +54,11 @@ export async function checkSession() {
   if (error) {
     console.error(error)
   } else if (data.session) {
+    console.log("logged in");
     userData.user = data.session.user
     userData.isLoggedIn = true
   } else { 
+    console.log("logged out");
     userData.isLoggedIn = false
     userData.user = {}
   }
