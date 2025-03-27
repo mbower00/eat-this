@@ -1,3 +1,7 @@
+<script>
+  import { userData } from "../stores.svelte";
+</script>
+
 <header>
   <nav>
     <a href="#home" class="header-link"><h3>Eat This!</h3></a>
@@ -14,13 +18,13 @@
         <div class="bar"></div>
       </li>
       <li>
-        <a href="#login">Login</a>
-        <div class="bar"></div>
-      </li>
-      <li>
-        <a href="#userhub">
-          <!-- line copied from fontawesome.com -->
-          <i class="fa-solid fa-user"></i>
+        <a href="#user">
+          {#if userData.isLoggedIn}
+            <!-- line copied from fontawesome.com -->
+            <i class="fa-solid fa-user"></i>
+          {:else}
+            Login
+          {/if}
         </a>
         <div class="bar"></div>
       </li>

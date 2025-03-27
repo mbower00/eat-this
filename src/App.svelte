@@ -9,6 +9,7 @@
   import ErrorView from "./lib/components/views/ErrorView.svelte";
   import { checkSession } from "./lib/auth.svelte.js";
   import { onMount } from "svelte";
+  import { userData } from "./lib/stores.svelte";
 
   let route = $state("");
   let idParam = $state();
@@ -35,14 +36,16 @@
   <div class="main-view">
     {#if route === "" || route === "#home"}
       <HomeView />
-    {:else if route === "#login"}
-      <LoginView />
+    {:else if route === "#user"}
+      {#if userData.isLoggedIn}
+        <UserHubView />
+      {:else}
+        <LoginView />
+      {/if}
     {:else if route === "#recipe"}
       <RecipeView id={idParam} />
     {:else if route === "#search"}
       <SearchView />
-    {:else if route === "#userhub"}
-      <UserHubView />
     {:else}
       <ErrorView error={{ code: 404, message: "The page was not found!" }} />
     {/if}
