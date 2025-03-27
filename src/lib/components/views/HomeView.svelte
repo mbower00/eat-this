@@ -44,13 +44,14 @@
     background-position: center;
     height: 65vh;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .hero-button {
     position: relative;
-    left: 40%;
-    top: 50%;
-    width: 15%;
-    height: 15%;
+    width: 200px;
+    height: 70px;
     border-radius: 20px;
     font-family: "Roboto", "San Serif";
     font-size: x-large;

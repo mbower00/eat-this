@@ -1,5 +1,6 @@
 <script>
   import { userData } from "../stores.svelte";
+  console.log(userData);
 </script>
 
 <header>
