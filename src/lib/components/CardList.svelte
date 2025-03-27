@@ -23,7 +23,7 @@
   .card-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 25px;
     justify-content: space-around;
     margin: 20px 0;
   }

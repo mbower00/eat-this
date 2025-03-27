@@ -38,7 +38,7 @@
     }
     .recipe-card img {
         border-radius: 8px;
-        width: 200px;
+        width: 250px;
     }
     .recipe-card:hover {
         transform: scale(1) translateY(-5px);
