@@ -8,7 +8,6 @@ export async function login(credentials) {
     // TODO: show error banner
     console.error(error)
   } else {
-    console.log(data)
     window.location.hash = ""
     userData.isLoggedIn = true
     userData.user = data.user
@@ -52,15 +51,12 @@ export async function logout() {
 
 export async function checkSession() {
   let {data, error} = await supabase.auth.getSession()
-  console.log(data)
   if (error) {
     console.error(error)
   } else if (data.session) {
-    console.log("logged in")
     userData.user = data.session.user
     userData.isLoggedIn = true
   } else { 
-    console.log("logged out")
     userData.isLoggedIn = false
     userData.user = {}
   }

@@ -1,84 +1,41 @@
 <script>
   import CardList from "../CardList.svelte";
   import LoadingAnimation from "../LoadingAnimation.svelte";
-  let testId = $state(1);
-  const exampleData=[
-    {
-      "id": 640123,
-      "title": "Cornbread Panzanella",
-      "image": "https://img.spoonacular.com/recipes/640123-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 658753,
-      "title": "Roma Tomato Bruschetta",
-      "image": "https://img.spoonacular.com/recipes/658753-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 1095751,
-      "title": "Fresh Tomato Risotto with Grilled Green Vegetables",
-      "image": "https://img.spoonacular.com/recipes/1095751-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 644205,
-      "title": "Garden Vegetable Ravioli With Tomato Brodo",
-      "image": "https://img.spoonacular.com/recipes/644205-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 643175,
-      "title": "Focaccia with Tomato, Green Onion and Garlic",
-      "image": "https://img.spoonacular.com/recipes/643175-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 716300,
-      "title": "Plantain Pizza",
-      "image": "https://img.spoonacular.com/recipes/716300-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 658024,
-      "title": "Minestrone Soup",
-      "image": "https://img.spoonacular.com/recipes/658024-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 638002,
-      "title": "Chicken Cacciatore",
-      "image": "https://img.spoonacular.com/recipes/638002-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 655847,
-      "title": "Pesto Veggie Pizza",
-      "image": "https://img.spoonacular.com/recipes/655847-312x231.jpg",
-      "imageType": "jpg"
-    },
-    {
-      "id": 664481,
-      "title": "Vegan Risotto Cakes",
-      "image": "https://img.spoonacular.com/recipes/664481-312x231.jpg",
-      "imageType": "jpg"
-    }
-  ];
+  import { getRandomRecipes } from "../../external-services.mjs";
+  let getRecipes = getRandomRecipes;
+  const mode = import.meta.env.VITE_MODE;
+
+  if (mode === "dev") {
+    getRecipes = generateDevRecipes;
+  }
+
+  async function generateDevRecipes() {
+    let recipes = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
+      return {
+        title: `recipe id: ${number}`,
+        id: number,
+        // made using https://placehold.co/
+        image: "https://placehold.co/300x200?text=Dev+Mode",
+      };
+    });
+    console.log(recipes);
+    return recipes;
+  }
+
+  let randomRecipesPromise = $state(getRecipes());
 </script>
 
 <h1>Let's Get Cooking</h1>
-<!-- <p>This is the main page of the application.</p> -->
 
 <div class="hero-image">
-  <button class="hero-button">Find a  Recipe</button>
+  <button class="hero-button">Find a Recipe</button>
 </div>
 
-<a href="#recipe?id={testId}">test recipe #</a><input
-  type="number"
-  bind:value={testId}
-/>
-
-  <CardList recipes={exampleData}/>
+{#await randomRecipesPromise}
+  <LoadingAnimation />
+{:then recipes}
+  <CardList {recipes} />
+{/await}
 
 <style>
   .hero-image {
@@ -87,7 +44,6 @@
     background-position: center;
     height: 65vh;
     width: 100%;
-    
   }
   .hero-button {
     position: relative;
@@ -103,14 +59,11 @@
     background-color: #688b41;
     color: white;
     box-shadow: #000 0px 3px 10px;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
   }
   .hero-button:hover {
     color: #7a2a37;
     border-color: #7a2a37;
     transform: scale(1.01) translateY(-3px);
   }
-
-
-    
 </style>

@@ -6,7 +6,6 @@ export async function getRecipeById(id) {
   try {
     const response = await fetch(`${BASE_URL}/recipes/${id}/information?${KEY_PARAM}`)
     const data = await response.json()
-    console.log(data)
     if (data.status === "failure") {
       throw data
     } else {
@@ -31,8 +30,6 @@ export async function searchRecipes(query, options = {}) {
   try {
     const response = await fetch(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&query=${query}${optionsString}`)
     const data = await response.json()
-    console.log(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&query=${query}${optionsString}`)
-    console.log(data)
     if (data.status === "failure") {
       throw data
     } else {
@@ -47,7 +44,7 @@ export async function searchRecipes(query, options = {}) {
 see https://spoonacular.com/food-api/docs#Search-Recipes-Complex
 for the various options. 
 */
-export async function getRandomRecipes(number = 6, options = {}) {
+export async function getRandomRecipes(number = 10, options = {}) {
   // using code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   let optionsString = ""
   for (let i of Object.keys(options)) {
@@ -56,12 +53,10 @@ export async function getRandomRecipes(number = 6, options = {}) {
   try {
     const response = await fetch(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&number=${number}${optionsString}`)
     const data = await response.json()
-    console.log(`${BASE_URL}/recipes/complexSearch/?${KEY_PARAM}&number=${number}${optionsString}`)
-    console.log(data)
     if (data.status === "failure") {
       throw data
     } else {
-      return data
+      return data.results
     }
   } catch (error) {
     throw error
