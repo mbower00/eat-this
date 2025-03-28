@@ -10,6 +10,7 @@
   import { checkSession } from "./lib/auth.svelte.js";
   import { onMount } from "svelte";
   import { userData } from "./lib/stores.svelte";
+  import ErrorBanner from "./lib/components/ErrorBanner.svelte";
 
   let route = $state("");
   let idParam = $state();
@@ -29,6 +30,8 @@
   window.addEventListener("popstate", updateRoute);
   onMount(init);
 </script>
+
+<ErrorBanner />
 
 <Header />
 
