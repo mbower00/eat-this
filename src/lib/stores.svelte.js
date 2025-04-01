@@ -1,2 +1,3 @@
 export const userData = $state({isLoggedIn: false, user: null})
-export const errorData = $state({isShown: false, message: ""})
+// type options, "error", "success", anything else for default
+export const alertData = $state({isShown: true, message: "", type: "error"})

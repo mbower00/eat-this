@@ -7,10 +7,11 @@
   import SearchView from "./lib/components/views/SearchView.svelte";
   import UserHubView from "./lib/components/views/UserHubView.svelte";
   import ErrorView from "./lib/components/views/ErrorView.svelte";
+  import ErrorBanner from "./lib/components/AlertBanner.svelte";
   import { checkSession } from "./lib/auth.svelte.js";
   import { onMount } from "svelte";
-  import { userData } from "./lib/stores.svelte";
-  import ErrorBanner from "./lib/components/ErrorBanner.svelte";
+  import { alertData, userData } from "./lib/stores.svelte";
+  import { showAlert } from "./lib/utils.mjs";
 
   let route = $state("");
   let idParam = $state();
@@ -31,7 +32,9 @@
   onMount(init);
 </script>
 
-<ErrorBanner />
+{#if alertData.isShown}
+  <ErrorBanner />
+{/if}
 
 <Header />
 
