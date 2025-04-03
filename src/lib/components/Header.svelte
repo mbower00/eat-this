@@ -1,6 +1,10 @@
+<!-- using code from https://svelte.dev/tutorial/svelte/in-and-out and https://svelte.dev/docs/svelte/svelte-transition-->
+
 <script>
   import { userData } from "../stores.svelte";
+  import { slide } from "svelte/transition";
   let isRecipesMenuShown = $state(false)
+
 
   const recipeOptions = [
     {name: "Chicken", paramString: "?query=chicken"},
@@ -21,10 +25,10 @@
         <a href="#home">Home</a>
         <div class="bar"></div>
       </li>
-      <li onmouseenter={() => {isRecipesMenuShown = true}} onmouseleave={() => {isRecipesMenuShown = false}}>
+      <li class="recipes-menu-option" onmouseenter={() => {isRecipesMenuShown = true}} onmouseleave={() => {isRecipesMenuShown = false}}>
         Recipes
         {#if isRecipesMenuShown}
-          <menu class="recipes-menu">
+          <menu in:slide={{duration: 200}} out:slide={{duration: 200}} class="recipes-menu">
             {#each recipeOptions as option}
               <li class="hoverable-li">
                 <a href={`#recipes${option.paramString}`}>{option.name}</a>
@@ -93,6 +97,7 @@
     background-color: var(--primary-color);
     padding: 15px;
     margin-left: -15px;
+    border-radius: 0 0 8px 8px;
     .hoverable-li {
       width: fit-content;
     }
@@ -127,5 +132,8 @@
     position: relative;
     top: 5px;
     padding-left: 3px;
+  }
+  .recipes-menu-option {
+    cursor: default;
   }
 </style>
