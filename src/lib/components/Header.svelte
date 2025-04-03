@@ -1,24 +1,47 @@
 <script>
   import { userData } from "../stores.svelte";
-  console.log(userData);
+  let isRecipesMenuShown = $state(false)
+
+  const recipeOptions = [
+    {name: "Chicken", paramString: "?query=chicken"},
+    {name: "American", paramString: "?cuisine=american"},
+    {name: "Italian", paramString: "?cuisine=italian"},
+    {name: "Mexican", paramString: "?query=mexican"},
+    {name: "Asian", paramString: "?query=asian"},
+    {name: "Vegitarian", paramString: "?diet=vegitarian"},
+    {name: "Paleo", paramString: "?diet=paleo"},
+  ]
 </script>
 
 <header>
   <nav>
-    <a href="#home" class="header-link"><h3>Eat This!</h3></a>
+    <a href="#home" class="header-link"><h3>Eat This<img class="logo" src="eatThisIcon.png" /></h3></a>
     <menu>
-      <li>
+      <li class="hoverable-li">
         <a href="#home">Home</a>
         <div class="bar"></div>
       </li>
-      <li>
+      <li onmouseenter={() => {isRecipesMenuShown = true}} onmouseleave={() => {isRecipesMenuShown = false}}>
+        Recipes
+        {#if isRecipesMenuShown}
+          <menu class="recipes-menu">
+            {#each recipeOptions as option}
+              <li class="hoverable-li">
+                <a href={`#recipes${option.paramString}`}>{option.name}</a>
+                <div class="bar"></div>
+              </li>
+            {/each}
+          </menu>
+        {/if}
+        </li>
+      <li class="hoverable-li">
         <a href="#search">
           <!-- line copied from fontawesome.com -->
           <i class="fa-solid fa-magnifying-glass"></i>
         </a>
         <div class="bar"></div>
       </li>
-      <li>
+      <li class="hoverable-li">
         <a href="#user">
           {#if userData.isLoggedIn}
             <!-- line copied from fontawesome.com -->
@@ -61,6 +84,20 @@
   }
 
   li {
+    font-size: large;
+    color: white;
+  }
+  .recipes-menu {
+    position: absolute;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    padding: 15px;
+    margin-left: -15px;
+    .hoverable-li {
+      width: fit-content;
+    }
+  }
+  .hoverable-li {
     position: relative;
     .bar {
       position: absolute;
@@ -80,6 +117,15 @@
   }
   .header-link {
     text-decoration: none;
+    font-size: larger;
     color: white;
+  }
+
+  .logo {
+    width: 23px;
+    height: 25px;
+    position: relative;
+    top: 5px;
+    padding-left: 3px;
   }
 </style>

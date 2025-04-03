@@ -7,6 +7,7 @@
   import SearchView from "./lib/components/views/SearchView.svelte";
   import UserHubView from "./lib/components/views/UserHubView.svelte";
   import ErrorView from "./lib/components/views/ErrorView.svelte";
+  import RecipesView from "./lib/components/views/RecipesView.svelte";
   import ErrorBanner from "./lib/components/AlertBanner.svelte";
   import { checkSession } from "./lib/auth.svelte.js";
   import { onMount } from "svelte";
@@ -15,6 +16,9 @@
 
   let route = $state("");
   let idParam = $state();
+  let queryParam = $state("");
+  let cuisineParam = $state("");
+  let dietParam = $state("");
 
   async function init() {
     await checkSession();
@@ -26,6 +30,9 @@
     route = hashString;
     const urlParams = new URLSearchParams(paramString);
     idParam = urlParams.get("id");
+    queryParam = urlParams.get("query");
+    cuisineParam = urlParams.get("cuisine");
+    dietParam = urlParams.get("diet");
   }
 
   window.addEventListener("popstate", updateRoute);
@@ -48,9 +55,11 @@
       {:else}
         <LoginView />
       {/if}
-    {:else if route === "#recipe"}
-      <RecipeView id={idParam} />
-    {:else if route === "#search"}
+      {:else if route === "#recipe"}
+        <RecipeView id={idParam} />
+      {:else if route === "#recipes"}
+        <RecipesView query={queryParam} cuisine={cuisineParam} diet={dietParam} />
+      {:else if route === "#search"}
       <SearchView />
     {:else}
       <ErrorView error={{ code: 404, message: "The page was not found!" }} />
