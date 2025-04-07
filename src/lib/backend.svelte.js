@@ -16,9 +16,6 @@ export async function login(credentials) {
 export async function oauthLogin(provider) {
   let { data, error } = await supabase.auth.signInWithOAuth({
     provider,
-    options: {
-      redirectTo: window.location.origin
-    }
   })
   if (error) {
     // TODO: show error banner
