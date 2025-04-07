@@ -83,7 +83,7 @@
     justify-content: space-between;
     padding: 5px 15px;
     align-items: center;
-    gap: 13px;
+    gap: 12px;
   }
   h3 {
     margin: 0;
@@ -91,10 +91,9 @@
   menu {
     list-style: none;
     display: flex;
-    gap: 13px;
+    gap: 12px;
     margin: 0;
     padding: 0;
-    font-size: small;
     a {
       text-decoration: none;
       color: white;
@@ -102,7 +101,7 @@
   }
 
   li {
-    font-size: large;
+    font-size: medium;
     color: white;
   }
   .recipes-menu {
@@ -136,7 +135,7 @@
   }
   .header-link {
     text-decoration: none;
-    font-size: larger;
+    font-size: large;
     color: white;
     display: flex;
     align-items: center;
@@ -152,7 +151,16 @@
   }
   @media (min-width: 400px) {
     nav {
-      gap: 15px;
+      gap: 20px;
+    }
+    menu {
+      gap: 20px;
+    }
+    li {
+      font-size: large;
+    }
+    .header-link {
+      font-size: larger;
     }
   }
 </style>

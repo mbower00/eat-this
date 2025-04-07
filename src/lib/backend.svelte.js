@@ -13,10 +13,12 @@ export async function login(credentials) {
     userData.user = data.user
   }
 }
-
 export async function oauthLogin(provider) {
   let { data, error } = await supabase.auth.signInWithOAuth({
     provider,
+    options: {
+      redirectTo: window.location.origin
+    }
   })
   if (error) {
     // TODO: show error banner
@@ -54,11 +56,9 @@ export async function checkSession() {
   if (error) {
     console.error(error)
   } else if (data.session) {
-    console.log("logged in");
     userData.user = data.session.user
     userData.isLoggedIn = true
   } else { 
-    console.log("logged out");
     userData.isLoggedIn = false
     userData.user = {}
   }

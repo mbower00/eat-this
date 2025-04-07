@@ -7,8 +7,9 @@
   } from "../../backend.svelte.js";
   import LoadingAnimation from "../LoadingAnimation.svelte";
   import CardList from "../CardList.svelte";
+  import { onMount } from "svelte";
 
-  let avatar = getAvatar();
+  let avatar = $state();
 
   let customsPromise = $state(getCustomRecipes());
   let favoritesPromise = $state(getFavoriteRecipes());
@@ -23,6 +24,11 @@
   function customAddedHandler(e) {
     e.preventDefault();
   }
+
+  function init() {
+    avatar = getAvatar();
+  }
+  onMount(init);
 </script>
 
 <h1>My Hub</h1>

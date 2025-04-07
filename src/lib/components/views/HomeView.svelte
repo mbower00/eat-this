@@ -18,7 +18,6 @@
         image: "https://placehold.co/300x200?text=Dev+Mode",
       };
     });
-    console.log(recipes);
     return recipes;
   }
 
