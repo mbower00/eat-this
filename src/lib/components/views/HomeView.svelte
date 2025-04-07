@@ -10,7 +10,7 @@
   }
 
   async function generateDevRecipes() {
-    let recipes = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
+    let recipes = [1, 2, 3, 4, 5, 6, 7, 9].map((number) => {
       return {
         title: `recipe id: ${number}`,
         id: number,

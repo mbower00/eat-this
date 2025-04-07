@@ -45,7 +45,7 @@ export async function searchRecipes(query, options = {}) {
 see https://spoonacular.com/food-api/docs#Search-Recipes-Complex
 for the various options. 
 */
-export async function getRandomRecipes(number = 10, options = {}) {
+export async function getRandomRecipes(number = 8, options = {}) {
   // using code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   let optionsString = ""
   for (let i of Object.keys(options)) {
