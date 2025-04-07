@@ -3,32 +3,46 @@
 <script>
   import { userData } from "../stores.svelte";
   import { slide } from "svelte/transition";
-  let isRecipesMenuShown = $state(false)
-
+  let isRecipesMenuShown = $state(false);
 
   const recipeOptions = [
-    {name: "Chicken", paramString: "?query=chicken"},
-    {name: "American", paramString: "?cuisine=american"},
-    {name: "Italian", paramString: "?cuisine=italian"},
-    {name: "Mexican", paramString: "?query=mexican"},
-    {name: "Asian", paramString: "?query=asian"},
-    {name: "Vegitarian", paramString: "?diet=vegitarian"},
-    {name: "Paleo", paramString: "?diet=paleo"},
-  ]
+    { name: "Chicken", paramString: "?query=chicken" },
+    { name: "American", paramString: "?cuisine=american" },
+    { name: "Italian", paramString: "?cuisine=italian" },
+    { name: "Mexican", paramString: "?query=mexican" },
+    { name: "Asian", paramString: "?query=asian" },
+    { name: "Vegitarian", paramString: "?diet=vegitarian" },
+    { name: "Paleo", paramString: "?diet=paleo" },
+  ];
 </script>
 
 <header>
   <nav>
-    <a href="#home" class="header-link"><h3>Eat This<img class="logo" src="eatThisIcon.png" /></h3></a>
+    <a href="#home" class="header-link"
+      ><h3>Eat This</h3>
+      <img class="logo" alt="logo" src="eatThisIcon.png" />
+    </a>
     <menu>
       <li class="hoverable-li">
         <a href="#home">Home</a>
         <div class="bar"></div>
       </li>
-      <li class="recipes-menu-option" onmouseenter={() => {isRecipesMenuShown = true}} onmouseleave={() => {isRecipesMenuShown = false}}>
+      <li
+        class="recipes-menu-option"
+        onmouseenter={() => {
+          isRecipesMenuShown = true;
+        }}
+        onmouseleave={() => {
+          isRecipesMenuShown = false;
+        }}
+      >
         Recipes
         {#if isRecipesMenuShown}
-          <menu in:slide={{duration: 200}} out:slide={{duration: 200}} class="recipes-menu">
+          <menu
+            in:slide={{ duration: 200 }}
+            out:slide={{ duration: 200 }}
+            class="recipes-menu"
+          >
             {#each recipeOptions as option}
               <li class="hoverable-li">
                 <a href={`#recipes${option.paramString}`}>{option.name}</a>
@@ -37,7 +51,7 @@
             {/each}
           </menu>
         {/if}
-        </li>
+      </li>
       <li class="hoverable-li">
         <a href="#search">
           <!-- line copied from fontawesome.com -->
@@ -69,7 +83,7 @@
     justify-content: space-between;
     padding: 5px 15px;
     align-items: center;
-    gap: 15px;
+    gap: 13px;
   }
   h3 {
     margin: 0;
@@ -77,7 +91,7 @@
   menu {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 13px;
     margin: 0;
     padding: 0;
     font-size: small;
@@ -124,16 +138,21 @@
     text-decoration: none;
     font-size: larger;
     color: white;
+    display: flex;
+    align-items: center;
+    gap: 3px;
   }
 
   .logo {
-    width: 23px;
-    height: 25px;
-    position: relative;
-    top: 5px;
-    padding-left: 3px;
+    width: 20px;
+    height: inherit;
   }
   .recipes-menu-option {
     cursor: default;
+  }
+  @media (min-width: 400px) {
+    nav {
+      gap: 15px;
+    }
   }
 </style>
