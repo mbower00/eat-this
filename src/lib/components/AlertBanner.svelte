@@ -40,7 +40,7 @@
       <i class="fa-solid fa-bell"></i>
     {/if}
     <div>
-      <div>asdf lksdfj sld fjlskdfj ds</div>
+      <div>{alertData.message}</div>
     </div>
   </div>
 </div>

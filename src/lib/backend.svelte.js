@@ -1,11 +1,12 @@
 import supabase from "./supabase.js";
 import { userData } from "./stores.svelte.js";
+import { showAlert } from "./utils.mjs";
 
 export async function login(credentials) {
   // credentials should have .email and .password
   let { data, error } = await supabase.auth.signInWithPassword(credentials)
   if (error) {
-    // TODO: show error banner
+    showAlert(error.message, "error")
     console.error(error)
   } else {
     window.location.hash = ""
@@ -18,7 +19,7 @@ export async function oauthLogin(provider) {
     provider,
   })
   if (error) {
-    // TODO: show error banner
+    showAlert(error.message, "error")
     console.error(error)
   }
 }
@@ -27,7 +28,7 @@ export async function signup(credentials) {
   // credentials should have .email and .password
   let { data, error } = await supabase.auth.signUp(credentials)
   if (error) {
-    // TODO: show error banner
+    showAlert(error.message, "error")
     console.error(error)
   } else {
     window.location.hash = ""
@@ -39,7 +40,7 @@ export async function signup(credentials) {
 export async function logout() {
   let { error } = await supabase.auth.signOut()
   if (error) {
-    // TODO: show error banner
+    showAlert(error.message, "error")
     console.error(error)
   } else {
     userData.isLoggedIn = false
@@ -51,6 +52,7 @@ export async function logout() {
 export async function checkSession() {
   let {data, error} = await supabase.auth.getSession()
   if (error) {
+    showAlert(error.message, "error")
     console.error(error)
   } else if (data.session) {
     userData.user = data.session.user
@@ -66,6 +68,7 @@ export async function getUserSessionData() {
   let isLoggedIn = false
   let user = {}
   if (error) {
+    showAlert(error.message, "error")
     console.error(error)
   } else if (data.session) {
     user = data.session.user
