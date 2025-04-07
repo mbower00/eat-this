@@ -80,7 +80,7 @@ export async function getUserSessionData() {
 export async function getFavoriteRecipes() {
   // placehholder...
   await setTimeout(() => {}, 1000)
-  return [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
+  return [1, 2, 3, 4,].map((number) => {
     return {
       title: `recipe id: ${number}`,
       id: number,
@@ -93,7 +93,7 @@ export async function getFavoriteRecipes() {
 export async function getCustomRecipes() {
   // placehholder...
   await setTimeout(() => {}, 1000)
-  return [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
+  return [1, 2, 3, 4,].map((number) => {
     return {
       title: `recipe id: ${number}`,
       id: number,
