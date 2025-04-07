@@ -9,7 +9,7 @@
   import ErrorView from "./lib/components/views/ErrorView.svelte";
   import RecipesView from "./lib/components/views/RecipesView.svelte";
   import ErrorBanner from "./lib/components/AlertBanner.svelte";
-  import { checkSession } from "./lib/auth.svelte.js";
+  import { checkSession } from "./lib/backend.svelte.js";
   import { onMount } from "svelte";
   import { alertData, userData } from "./lib/stores.svelte";
   import { showAlert } from "./lib/utils.mjs";
@@ -55,11 +55,11 @@
       {:else}
         <LoginView />
       {/if}
-      {:else if route === "#recipe"}
-        <RecipeView id={idParam} />
-      {:else if route === "#recipes"}
-        <RecipesView query={queryParam} cuisine={cuisineParam} diet={dietParam} />
-      {:else if route === "#search"}
+    {:else if route === "#recipe"}
+      <RecipeView id={idParam} />
+    {:else if route === "#recipes"}
+      <RecipesView query={queryParam} cuisine={cuisineParam} diet={dietParam} />
+    {:else if route === "#search"}
       <SearchView />
     {:else}
       <ErrorView error={{ code: 404, message: "The page was not found!" }} />

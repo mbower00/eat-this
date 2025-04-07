@@ -76,3 +76,29 @@ export async function getUserSessionData() {
   }
   return {isLoggedIn, user}
 }
+
+export async function getFavoriteRecipes() {
+  // placehholder...
+  await setTimeout(() => {}, 1000)
+  return [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
+    return {
+      title: `recipe id: ${number}`,
+      id: number,
+      // made using https://placehold.co/
+      image: "https://placehold.co/300x200?text=Dev+Mode",
+    };
+  });
+}
+
+export async function getCustomRecipes() {
+  // placehholder...
+  await setTimeout(() => {}, 1000)
+  return [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
+    return {
+      title: `recipe id: ${number}`,
+      id: number,
+      // made using https://placehold.co/
+      image: "https://placehold.co/300x200?text=Dev+Mode",
+    };
+  });
+}

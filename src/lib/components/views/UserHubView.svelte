@@ -1,8 +1,17 @@
 <script>
-  import { logout } from "../../auth.svelte";
+  import { logout } from "../../backend.svelte";
   import { userData } from "../../stores.svelte";
+  import {
+    getCustomRecipes,
+    getFavoriteRecipes,
+  } from "../../backend.svelte.js";
+  import LoadingAnimation from "../LoadingAnimation.svelte";
+  import CardList from "../CardList.svelte";
 
   let avatar = getAvatar();
+
+  let customsPromise = $state(getCustomRecipes());
+  let favoritesPromise = $state(getFavoriteRecipes());
 
   function getAvatar() {
     const avatarIdentities = userData.user.identities.filter((identity) => {
@@ -58,16 +67,48 @@
 </section>
 
 <h2>Favorites</h2>
-<section class="favorites-grid">
-  <p class="info-text">
-    You have not added any recipes yet! <a href="#search">Find a recipe.</a>
-  </p>
+<section class="favorites">
+  {#await favoritesPromise}
+    <LoadingAnimation />
+  {:then favorites}
+    {#if favorites.length > 0}
+      <CardList recipes={favorites} />
+    {:else}
+      <p class="info-text">
+        You have not added any recipes yet! <a href="#search">Find a recipe.</a>
+      </p>
+    {/if}
+  {:catch error}
+    <p class="info-text">There was an error getting your favorites.</p>
+    <p class="info-text">{error.code}: {error.message}</p>
+  {/await}
 </section>
 
 <h2>Custom Recipes</h2>
-<section class="customs-grid">
-  <p class="info-text">You have not created any recipes yet!</p>
-  <form onsubmit={customAddedHandler}></form>
+<section class="customs">
+  {#await customsPromise}
+    <LoadingAnimation />
+  {:then customs}
+    {#if customs.length > 0}
+      <CardList recipes={customs} />
+    {:else}
+      <p class="info-text">
+        You have not added any recipes yet! <a href="#search">Find a recipe.</a>
+      </p>
+    {/if}
+  {:catch error}
+    <p class="info-text">There was an error getting your favorites.</p>
+    <p class="info-text">{error.code}: {error.message}</p>
+  {/await}
+  <form onsubmit={customAddedHandler}>
+    <label for="recipe-name">Recipe Name</label>
+    <input type="text" id="recipe-name" />
+    <label for="recipe-description">Recipe Description</label>
+    <textarea id="recipe-description" name="description" rows="6" cols="30"
+    ></textarea>
+
+    <button>Submit</button>
+  </form>
 </section>
 
 <style>

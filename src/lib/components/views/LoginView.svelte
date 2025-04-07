@@ -1,5 +1,5 @@
 <script>
-  import { login, signup, oauthLogin } from "../../auth.svelte.js";
+  import { login, signup, oauthLogin } from "../../backend.svelte.js";
   import { searchRecipes, getRandomRecipes } from "../../external-services.mjs";
 
   let email = $state("");
