@@ -28,42 +28,58 @@
 <h1>My Hub</h1>
 
 <section class="profile-info">
-  <div class="avatar-div">
+  <div class="avatar-email-wrapper">
     {#if avatar}
-      <img src={avatar} alt="Profile avatar" class="avatar-img" />
+      <img src={avatar} alt="avatar" class="avatar-img" />
     {:else}
       <!-- line copied from fontawesome.com () -->
       <i class="fa-regular fa-circle-user"></i>
     {/if}
+    <p class="email">{userData.user.email}</p>
   </div>
-  <p class="email">{userData.user.email}</p>
-  <p class="logged-in-with">logged in with:</p>
-  <div class="providers-flex">
-    {#each userData.user.app_metadata.providers as provider}
-      <span class="provider-flex">
-        {#if provider === "email"}
-          <!-- line copied from fontawesome.com -->
-          <i class="fa-solid fa-envelope"></i>
-          <span>Email</span>
-        {:else if provider === "google"}
-          <!-- line copied from fontawesome.com -->
-          <i class="fa-brands fa-google"></i>
-          <span>Google</span>
-        {:else if provider === "github"}
+  <div class="providers-logout-wrapper">
+    <div class="providers-wrapper">
+      <p class="logged-in-with">logged in with:</p>
+      <div class="providers-flex">
+        {#each userData.user.app_metadata.providers as provider}
+          <span class="provider-flex">
+            {#if provider === "email"}
+              <!-- line copied from fontawesome.com -->
+              <i class="fa-solid fa-envelope"></i>
+              <span>Email</span>
+            {:else if provider === "google"}
+              <!-- line copied from fontawesome.com -->
+              <i class="fa-brands fa-google"></i>
+              <span>Google</span>
+            {:else if provider === "github"}
+              <!-- line copied from fontawesome.com -->
+              <i class="fa-brands fa-github"></i>
+              <span>Github</span>
+            {:else if provider === "discord"}
+              <!-- line copied from fontawesome.com -->
+              <i class="fa-brands fa-discord"></i>
+              <span>Discord</span>
+            {/if}
+          </span>
+        {/each}
+        <div class="provider-flex">
           <!-- line copied from fontawesome.com -->
           <i class="fa-brands fa-github"></i>
           <span>Github</span>
-        {:else if provider === "discord"}
-          <!-- line copied from fontawesome.com -->
-          <i class="fa-brands fa-discord"></i>
-          <span>Discord</span>
-        {/if}
-      </span>
-    {/each}
+        </div>
+      </div>
+    </div>
+    <!-- using code from https://www.w3schools.com/tags/att_global_title.asp -->
+    <button
+      class="logout-button tertiary-button"
+      type="button"
+      title="Log Out"
+      onclick={logout}
+    >
+      <!-- line copied from fontawesome.com -->
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
   </div>
-  <button class="logout-button secondary-button" type="button" onclick={logout}
-    >Log out</button
-  >
 </section>
 
 <h2>Favorites</h2>
@@ -116,13 +132,39 @@
   h2 {
     text-align: center;
   }
+  .profile-info {
+    border: #ddd solid 1px;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+  }
   .logout-button {
-    margin: 15px auto;
     display: block;
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: rgb(225, 82, 82);
+    border-color: rgb(225, 82, 82);
+  }
+  .avatar-email-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 15px;
+  }
+  .avatar-img {
+    width: 75px;
+    border-radius: 100%;
+    box-shadow: #999 0px 2px 6px;
   }
   .email {
     width: fit-content;
-    margin: 20px auto 15px auto;
+    margin: 0;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
@@ -131,6 +173,7 @@
     text-align: center;
     font-size: small;
     color: var(--light-text-color);
+    margin-top: 30px;
   }
   .providers-flex {
     display: flex;
@@ -138,6 +181,7 @@
     margin: 5px auto;
     justify-content: center;
     gap: 10px;
+    flex-direction: column;
   }
   .provider-flex {
     display: flex;
@@ -147,15 +191,6 @@
     /* padding: 5px; */
     /* border-radius: 5px; */
     /* border: var(--light-text-color) 1px dashed; */
-  }
-  .avatar-div {
-    margin: 0 auto;
-    width: fit-content;
-  }
-  .avatar-img {
-    width: 75px;
-    border-radius: 100%;
-    box-shadow: #999 0px 2px 6px;
   }
   .fa-circle-user {
     font-size: 75px;
@@ -167,6 +202,14 @@
     text-align: center;
     a {
       color: var(--secondary-color);
+    }
+  }
+  @media (min-width: 400px) {
+    .providers-flex {
+      flex-direction: row;
+    }
+    .avatar-email-wrapper {
+      grid-template-columns: 75px 1fr;
     }
   }
 </style>
