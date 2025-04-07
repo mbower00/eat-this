@@ -11,6 +11,7 @@
   // using code from https://svelte.dev/docs/svelte/$derived
   let pageNumber = $derived(offset / number + 1);
   let isLeftActive = $derived(offset - number >= 0);
+  // TODO: test that this is correct...
   let isRightActive = $derived(offset + number < totalResults);
 
   function toPrevPage() {
