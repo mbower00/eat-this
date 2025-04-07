@@ -62,11 +62,6 @@
             {/if}
           </span>
         {/each}
-        <div class="provider-flex">
-          <!-- line copied from fontawesome.com -->
-          <i class="fa-brands fa-github"></i>
-          <span>Github</span>
-        </div>
       </div>
     </div>
     <!-- using code from https://www.w3schools.com/tags/att_global_title.asp -->
