@@ -20,6 +20,7 @@
   <img src={recipe.image} alt={recipe.title} />
   <!-- using code from https://www.w3schools.com/tags/att_global_title.asp -->
   <button
+    class="favorite-button"
     onclick={() => {
       addFavorite({ id: recipe.id, image: recipe.image, title: recipe.title });
     }}
@@ -87,5 +88,10 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: block;
     margin: 0 auto 2rem;
+  }
+
+  .favorite-button {
+    margin: 0 auto;
+    display: block;
   }
 </style>
