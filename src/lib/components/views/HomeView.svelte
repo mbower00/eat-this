@@ -10,7 +10,7 @@
   }
 
   async function generateDevRecipes() {
-    let recipes = [1, 2, 3, 4, 5, 6, 7, 9].map((number) => {
+    let recipes = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11].map((number) => {
       return {
         title: `recipe id: ${number}`,
         id: number,
@@ -18,6 +18,7 @@
         image: "https://placehold.co/300x200?text=Dev+Mode",
       };
     });
+    console.log(recipes);
     return recipes;
   }
 
@@ -27,7 +28,9 @@
 <!-- <h1>Let's Get Cooking</h1> -->
 
 <div class="hero-image">
-  <button class="hero-button">Find a Recipe</button>
+  <a href="#search">
+    <button class="hero-button">Find a Recipe</button>
+  </a>
 </div>
 
 <h1 class="popularsTitle">Popular Recipes!</h1>
