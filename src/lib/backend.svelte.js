@@ -82,19 +82,6 @@ export async function getUserSessionData() {
   return {isLoggedIn, user}
 }
 
-export async function getFavoriteRecipes() {
-  // placehholder...
-  await setTimeout(() => {}, 1000)
-  return [1, 2, 3, 4,].map((number) => {
-    return {
-      title: `recipe id: ${number}`,
-      id: number,
-      // made using https://placehold.co/
-      image: "https://placehold.co/300x200?text=Dev+Mode",
-    };
-  });
-}
-
 // using code from:
 // - https://supabase.com/docs/guides/storage/uploads/standard-uploads
 // - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
@@ -167,5 +154,80 @@ export async function deleteCustom(customData) {
     console.error(error)
   } else {
     showAlert("Custom recipe deleted.")
+  }
+}
+
+export async function getFavoriteRecipes() {
+  // code copy/pasted from https://supabase.com/dashboard/project/ibswtaypwyvbfdkokmtp/api?resource=favorites
+  let { data: favorites, error } = await supabase
+  .from('favorites')
+  .select("*")
+  .eq('profile_id', userData.user.id)
+
+  if (error) {
+    showAlert(error.message, "error")
+    console.error(error.message)
+  } else {
+    return favorites.map((favorite) => {
+      return {
+        ...favorite,
+        id: favorite.recipe_id,
+        favoriteId: favorite.id
+      }
+    })
+  }
+}
+
+export async function addFavorite(recipeData) {
+  // code copy/pasted from https://supabase.com/dashboard/project/ibswtaypwyvbfdkokmtp/api?resource=favorites
+  const { data, error } = await supabase
+  .from('favorites')
+  .insert([
+    { recipe_id: recipeData.id, 
+      title: recipeData.title, 
+      image: recipeData.image, 
+      profile_id: userData.user.id 
+    },
+  ])
+  .select()
+
+  if (error) {
+    showAlert(error.message, "error")
+    console.error(error.message)
+  } else {
+    showAlert("Favorite added.", "success")
+    return data
+  }
+}
+
+export async function isFavorite(recipeId) {
+  // code copy/pasted from https://supabase.com/dashboard/project/ibswtaypwyvbfdkokmtp/api?resource=favorites
+  let { data: favorites, error } = await supabase
+  .from('favorites')
+  .select("*")
+  .eq('recipe_id', recipeId)
+  .eq('profile_id', userData.user.id)
+
+  if (error) {
+    showAlert(error.message, "error")
+    console.error(error.message)
+  } else {
+    return favorites.length > 0
+  }
+}
+
+export async function deleteFavorite(recipeId) {
+  // code copy/pasted from https://supabase.com/dashboard/project/ibswtaypwyvbfdkokmtp/api?resource=favorites
+  const { error } = await supabase
+  .from('favorites')
+  .delete()
+  .eq("profile_id", userData.user.id)
+  .eq("recipe_id", recipeId)
+  
+  if (error) {
+    showAlert(error.message, "error")
+    console.error(error.message)
+  } else {
+    showAlert("Favorite removed.",)
   }
 }
