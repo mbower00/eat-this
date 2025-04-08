@@ -1,13 +1,17 @@
 <script>
   import RecipeCard from "./RecipeCard.svelte";
 
-  let { recipes } = $props();
-
+  let { recipes, customAction = () => {} } = $props();
 </script>
 
 <section class="card-list">
   {#each recipes as recipe}
-    <RecipeCard {recipe} />
+    <RecipeCard
+      {recipe}
+      customAction={() => {
+        customAction(recipe);
+      }}
+    />
   {/each}
 </section>
 
