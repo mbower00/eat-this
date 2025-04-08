@@ -150,3 +150,22 @@ export async function getCustomRecipes() {
     })
   }
 }
+
+export async function deleteCustom(customData) {
+  // code copy/pasted from https://supabase.com/dashboard/project/ibswtaypwyvbfdkokmtp/api?resource=customs
+  const { error } = await supabase
+  .from('customs')
+  .delete()
+  .eq('id', customData.id)
+
+  // TODO: delete image, if applicable
+  // // code copy/pasted from https://supabase.com/docs/guides/storage/management/delete-objects
+  // await supabase.storage.from('images').remove(['', ''])
+  
+  if (error) {
+    showAlert(error.message, "error")
+    console.error(error)
+  } else {
+    showAlert("Custom recipe deleted.")
+  }
+}

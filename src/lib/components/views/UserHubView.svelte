@@ -5,7 +5,12 @@
   // using method from:
   // - https://www.reddit.com/r/Supabase/comments/10twlwn/easiest_way_to_add_an_image_to_a_row_of_data/?rdt=52894
 
-  import { logout, addImage, addCustom } from "../../backend.svelte";
+  import {
+    logout,
+    addImage,
+    addCustom,
+    deleteCustom,
+  } from "../../backend.svelte";
   import { userData } from "../../stores.svelte";
   import {
     getCustomRecipes,
@@ -78,6 +83,12 @@
     document.getElementById("customs-header").scrollIntoView(true);
   }
 
+  async function deleteCustomHandler() {
+    await deleteCustom(shownCustom);
+    shownCustom = null;
+    customsPromise = getCustomRecipes();
+  }
+
   function init() {
     avatar = getAvatar();
   }
@@ -125,7 +136,7 @@
     </div>
     <!-- using code from https://www.w3schools.com/tags/att_global_title.asp -->
     <button
-      class="logout-button tertiary-button"
+      class="logout-button red-button tertiary-button"
       type="button"
       title="Log Out"
       onclick={logout}
@@ -158,6 +169,15 @@
 <section class="customs">
   {#if shownCustom}
     <div class="showing-custom customs-card">
+      <button
+        class="tertiary-button x-button"
+        onclick={() => {
+          shownCustom = null;
+        }}
+      >
+        <!-- line copied from fontawesome.com -->
+        <i class="fa-solid fa-xmark"></i>
+      </button>
       <h3>{shownCustom.title}</h3>
       <img src={shownCustom.image} alt={shownCustom.title} />
       <p>{shownCustom.description}</p>
@@ -177,6 +197,15 @@
           </li>
         {/each}
       </ol>
+      <!-- using code from https://www.w3schools.com/tags/att_global_title.asp -->
+      <button
+        class="tertiary-button red-button trash-button"
+        onclick={deleteCustomHandler}
+        title="Delete recipe"
+      >
+        <!-- line copied from fontawesome.com -->
+        <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
   {/if}
 
@@ -295,15 +324,17 @@
     border-radius: 10px;
     position: relative;
   }
-  .logout-button {
+  .red-button {
     display: block;
     height: fit-content;
     width: fit-content;
     position: absolute;
-    top: 8px;
-    right: 8px;
     color: rgb(225, 82, 82);
     border-color: rgb(225, 82, 82);
+  }
+  .logout-button {
+    top: 8px;
+    right: 8px;
   }
   .avatar-email-wrapper {
     display: grid;
@@ -375,6 +406,22 @@
     h4 {
       margin: 10px 0 0 0;
     }
+  }
+  .x-button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    color: #aaa;
+    border-color: #aaa;
+    line-height: 0;
+    padding: 3.5px 5px;
+  }
+  .trash-button {
+    bottom: 8px;
+    right: 8px;
+    font-size: x-small;
+    padding: 5px;
+    line-height: 0;
   }
   .customs-card {
     padding: 30px;
