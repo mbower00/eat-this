@@ -63,3 +63,16 @@ export async function getRandomRecipes(number = 8, options = {}) {
     throw error
   }
 }
+
+// Get similar recipes
+export async function getRelatedRecipes(id, number = 4) {
+  const apiKey = import.meta.env.VITE_API_KEY; // Replace with your actual Spoonacular API key
+  const response = await fetch(`https://api.spoonacular.com/recipes/${id}/similar?number=${number}&apiKey=${apiKey}`);
+  
+  if (!response.ok) {
+    throw new Error("Failed to fetch related recipes");
+  }
+
+  const data = await response.json();
+  return data;
+}

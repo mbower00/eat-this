@@ -1,9 +1,11 @@
 <script>
-  import { getRecipeById } from "../../external-services.mjs";
+  import { getRecipeById, } from "../../external-services.mjs";
   // comment generated from vscode
   // @ts-ignore
   import LoadingAnimation from "../LoadingAnimation.svelte";
   import ErrorView from "./ErrorView.svelte";
+  import RelatedRecipes from "./RelatedRecipes.svelte"; // adjust path if needed
+
 
   let { id } = $props();
   let promise = $state();
@@ -53,9 +55,13 @@
     Recipe from
     <a href={recipe.sourceUrl} target="_blank">{recipe.sourceName}</a>
   </p>
+
+  <!--Add Related Recipes component here -->
+  <RelatedRecipes recipeId={recipe.id} />
 {:catch error}
   <ErrorView {error} />
 {/await}
+
 
 <style>
 
