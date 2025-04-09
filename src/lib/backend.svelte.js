@@ -2,6 +2,8 @@ import supabase from "./supabase.js";
 import { userData } from "./stores.svelte.js";
 import { showAlert } from "./utils.mjs";
 
+export const DEFAULT_IMAGE_PATH = "/storage/v1/object/public/default/default_dish.jpeg"
+
 export async function login(credentials) {
   // credentials should have .email and .password
   let { data, error } = await supabase.auth.signInWithPassword(credentials)
@@ -144,10 +146,22 @@ export async function deleteCustom(customData) {
   .from('customs')
   .delete()
   .eq('id', customData.id)
+  
+  if (customData.image !== `${import.meta.env.VITE_SUPABASE_URL}${DEFAULT_IMAGE_PATH}`) {
+    // recieved help from chatgpt
 
-  // TODO: delete image, if applicable
-  // // code copy/pasted from https://supabase.com/docs/guides/storage/management/delete-objects
-  // await supabase.storage.from('images').remove(['', ''])
+    // format image string
+    const imageString = customData.image.split("/").slice(8).join("/")
+
+    // code copy/pasted from: 
+    // - https://supabase.com/docs/guides/storage/management/delete-objects 
+    // - https://supabase.com/docs/reference/javascript/storage-from-copy
+    const { data, error } = await supabase.storage.from('images').remove([imageString])
+    if (error) {
+      showAlert(error.message)
+      console.log(error)
+    }
+  }
   
   if (error) {
     showAlert(error.message, "error")

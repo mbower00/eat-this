@@ -15,11 +15,11 @@
   import {
     getCustomRecipes,
     getFavoriteRecipes,
+    DEFAULT_IMAGE_PATH,
   } from "../../backend.svelte.js";
   import LoadingAnimation from "../LoadingAnimation.svelte";
   import CardList from "../CardList.svelte";
   import { onMount } from "svelte";
-  import { showAlert } from "../../utils.mjs";
 
   let avatar = $state();
 
@@ -60,7 +60,12 @@
     // below comment generated from vscode
     // @ts-ignore
     const imageFile = document.getElementById("recipe-img").files[0];
-    const image = await addImage(imageFile);
+    let image;
+    if (imageFile) {
+      image = await addImage(imageFile);
+    } else {
+      image = DEFAULT_IMAGE_PATH;
+    }
 
     const customsData = {
       title: recipeName,
@@ -71,10 +76,14 @@
       profile_id: userData.user.id,
     };
 
-    addCustom(customsData);
+    await addCustom(customsData);
 
     customsPromise = getCustomRecipes();
-    e.reset();
+    e.target.reset().then(() => {
+      ingredientsNumber = 1;
+      instructionsNumber = 1;
+      console.log(ingredientsNumber);
+    });
   }
 
   function showCustomRecipe(recipe) {
@@ -237,6 +246,7 @@
       class="text-input"
       id="recipe-name"
       bind:value={recipeName}
+      required
     />
 
     <label for="recipe-description">
@@ -250,6 +260,7 @@
       bind:value={recipeDescription}
       rows="6"
       cols="30"
+      required
     ></textarea>
 
     <span>
@@ -261,6 +272,7 @@
         class="number-input"
         min="1"
         bind:value={ingredientsNumber}
+        required
       /> )
     </span>
     <ul>
@@ -271,6 +283,7 @@
             type="text"
             class="text-input"
             bind:value={recipeIngredients[i]}
+            required
           />
         </li>
       {/each}
@@ -285,6 +298,7 @@
         class="number-input"
         min="1"
         bind:value={instructionsNumber}
+        required
       /> )
     </span>
     <ol>
@@ -295,6 +309,7 @@
             type="text"
             class="text-input"
             bind:value={recipeInstructions[i]}
+            required
           />
         </li>
       {/each}
@@ -305,7 +320,7 @@
       <i class="fa-solid fa-image"></i>
       Picture</label
     >
-    <input id="recipe-img" type="file" />
+    <input id="recipe-img" type="file" accept=".png,.jpeg,.jpg" />
 
     <button class="customs-submit">Submit</button>
   </form>
