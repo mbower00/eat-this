@@ -5,12 +5,38 @@
   import LoadingAnimation from "../LoadingAnimation.svelte";
   import ErrorView from "./ErrorView.svelte";
   import RelatedRecipes from "./RelatedRecipes.svelte"; // adjust path if needed
-  import { addFavorite } from "../../backend.svelte";
+  import {
+    addFavorite,
+    checkIfFavorite,
+    deleteFavorite,
+  } from "../../backend.svelte";
 
   let { id } = $props();
   let promise = $state();
+  let isFavoritePromise = $state();
 
-  promise = getRecipeById(id);
+  let isFavorite = $state(null);
+
+  async function addFavoriteHandler(recipe) {
+    await addFavorite({
+      id: recipe.id,
+      image: recipe.image,
+      title: recipe.title,
+    });
+    isFavorite = true;
+  }
+  async function removeFavoriteHandler(recipe) {
+    await deleteFavorite(recipe.id);
+    isFavorite = false;
+  }
+
+  promise = getRecipeById(id).then(async (data) => {
+    isFavoritePromise = checkIfFavorite(data.id).then((result) => {
+      isFavorite = result;
+      return result;
+    });
+    return data;
+  });
 </script>
 
 {#await promise}
@@ -19,17 +45,33 @@
   <h1>{recipe.title}</h1>
   <img src={recipe.image} alt={recipe.title} />
   <!-- using code from https://www.w3schools.com/tags/att_global_title.asp -->
-  <button
-    class="favorite-button"
-    onclick={() => {
-      addFavorite({ id: recipe.id, image: recipe.image, title: recipe.title });
-    }}
-    type="button"
-    title="Add to Favorites"
-  >
-    <!-- line copied from fontawesome.com -->
-    <i class="fa-solid fa-heart"></i>
-  </button>
+  {#await isFavoritePromise then}
+    {#if isFavorite === true}
+      <button
+        class="favorite-button"
+        onclick={() => {
+          removeFavoriteHandler(recipe);
+        }}
+        type="button"
+        title="Remove from Favorites"
+      >
+        <!-- line copied from fontawesome.com -->
+        <i class="fa-solid fa-heart"></i>
+      </button>
+    {:else if isFavorite === false}
+      <button
+        class="favorite-button"
+        onclick={() => {
+          addFavoriteHandler(recipe);
+        }}
+        type="button"
+        title="Add to Favorites"
+      >
+        <!-- line copied from fontawesome.com -->
+        <i class="fa-regular fa-heart"></i>
+      </button>
+    {/if}
+  {/await}
 
   <div class="meta-info">
     <div><strong>⏱️</strong> Ready in {recipe.readyInMinutes} mins</div>

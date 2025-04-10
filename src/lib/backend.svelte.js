@@ -214,7 +214,7 @@ export async function addFavorite(recipeData) {
   }
 }
 
-export async function isFavorite(recipeId) {
+export async function checkIfFavorite(recipeId) {
   // code copy/pasted from https://supabase.com/dashboard/project/ibswtaypwyvbfdkokmtp/api?resource=favorites
   let { data: favorites, error } = await supabase
   .from('favorites')
