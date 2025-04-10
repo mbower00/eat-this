@@ -76,14 +76,16 @@
       profile_id: userData.user.id,
     };
 
+    recipeName = "";
+    recipeDescription = "";
+    ingredientsNumber = 1;
+    instructionsNumber = 1;
+    recipeIngredients = [];
+    recipeInstructions = [];
+
     await addCustom(customsData);
 
     customsPromise = getCustomRecipes();
-    e.target.reset().then(() => {
-      ingredientsNumber = 1;
-      instructionsNumber = 1;
-      console.log(ingredientsNumber);
-    });
   }
 
   function showCustomRecipe(recipe) {

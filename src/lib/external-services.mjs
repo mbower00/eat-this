@@ -33,7 +33,6 @@ export async function searchRecipes(query, options = {}) {
     if (data.status === "failure") {
       throw data
     } else {
-      console.log(data)
       return data
     }
   } catch (error) {

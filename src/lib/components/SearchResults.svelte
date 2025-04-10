@@ -6,9 +6,13 @@
   let { query, options } = $props();
   let offset = $state(0);
   let number = $state(10);
-  let searchPromise = $state(searchAndUpdate());
   let totalResults = $state(0);
   // using code from https://svelte.dev/docs/svelte/$derived
+  let searchPromise = $derived.by(async () => {
+    let data = await searchRecipes(query || "", { offset, number, ...options });
+    totalResults = data.totalResults;
+    return data;
+  });
   let pageNumber = $derived(offset / number + 1);
   let isLeftActive = $derived(offset - number >= 0);
   // TODO: test that this is correct...
@@ -16,17 +20,9 @@
 
   function toPrevPage() {
     offset -= number;
-    searchPromise = searchAndUpdate();
   }
   function toNextPage() {
     offset += number;
-    searchPromise = searchAndUpdate();
-  }
-  async function searchAndUpdate() {
-    let data = await searchRecipes(query, { offset, number, ...options });
-    console.log(data);
-    totalResults = data.totalResults;
-    return data;
   }
 </script>
 

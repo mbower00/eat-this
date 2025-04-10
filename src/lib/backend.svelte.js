@@ -159,7 +159,7 @@ export async function deleteCustom(customData) {
     const { data, error } = await supabase.storage.from('images').remove([imageString])
     if (error) {
       showAlert(error.message)
-      console.log(error)
+      console.error(error)
     }
   }
   
