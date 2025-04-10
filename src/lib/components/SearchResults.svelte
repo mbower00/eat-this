@@ -13,7 +13,6 @@
     // does not reset the pagination
     let data = await searchRecipes(query || "", { offset, number, ...options });
     totalResults = data.totalResults;
-    console.log(data);
     return data;
   });
   let pageNumber = $derived(offset / number + 1);
