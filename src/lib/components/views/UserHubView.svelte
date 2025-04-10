@@ -21,7 +21,7 @@
   import CardList from "../CardList.svelte";
   import { onMount } from "svelte";
 
-  let avatar = $state();
+  let avatar = $state("");
 
   let customsPromise = $state(getCustomRecipes());
   let favoritesPromise = $state(getFavoriteRecipes());
