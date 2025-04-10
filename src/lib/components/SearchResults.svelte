@@ -9,13 +9,15 @@
   let totalResults = $state(0);
   // using code from https://svelte.dev/docs/svelte/$derived
   let searchPromise = $derived.by(async () => {
+    // TODO: fix error where there switching between recipes (under "Recipes" navigation)
+    // does not reset the pagination
     let data = await searchRecipes(query || "", { offset, number, ...options });
     totalResults = data.totalResults;
+    console.log(data);
     return data;
   });
   let pageNumber = $derived(offset / number + 1);
   let isLeftActive = $derived(offset - number >= 0);
-  // TODO: test that this is correct...
   let isRightActive = $derived(offset + number < totalResults);
 
   function toPrevPage() {
